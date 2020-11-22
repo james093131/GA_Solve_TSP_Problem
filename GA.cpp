@@ -5,13 +5,16 @@ int main(int argc, char *argv[])
     int pop = atoi(argv[1]);
 	int iteration = atoi(argv[2]);
     int run = atoi(argv[3]);
-    if (argc > 3)
+    char * F=argv[4];
+
+    if (argc > 4)
     {
-        RUN(iteration,pop,run);
+        RUN(iteration,pop,run,F);
     }
     else
     {
-        RUN(1000,30,30);
+        char K ='C';
+        RUN(1000,30,30,&K);
     }    
    
 }

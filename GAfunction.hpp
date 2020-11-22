@@ -170,7 +170,7 @@ void ini(i2d &city,d2d &distancetable)
     makearr(city, a, len);
     distancecal(distancetable, city, len); //製作距離表
 }
-void GA(int iteration,i2d P,i1d value,int pop,int r,i1d &convergence,i1d &result,i1d &PATH)
+void GA(int iteration,i2d P,i1d value,int pop,int r,i1d &convergence,i1d &result,i1d &PATH,char *F)
 {
     int i=0;
     int bestpop=0;//儲存最佳的解的位置
@@ -190,8 +190,11 @@ void GA(int iteration,i2d P,i1d value,int pop,int r,i1d &convergence,i1d &result
     while(i<iteration)
     {
         tournament(P,temp,Fitness,pop);
-        // CX_crossover(P,temp);
-        PMS(P,temp);
+        if(F == std::string("P"))
+            PMS(P,temp);
+        else 
+            CX_crossover(P,temp);
+        
         evaluate(P,distancetable,Fitness,bestpop,bestvalue);        
         updateglobalbest(bestvalue,bestpop,globalbestvalue,globalbest,P);
         convergence[i] += globalbestvalue;
@@ -208,7 +211,7 @@ void GA(int iteration,i2d P,i1d value,int pop,int r,i1d &convergence,i1d &result
         }
     PATH.assign(globalbest.begin(),globalbest.end());
 }
-void RUN(int iteration,int pop,int run)
+void RUN(int iteration,int pop,int run,char *F)
 {
     double START,END;
     int r=0;
@@ -220,7 +223,7 @@ void RUN(int iteration,int pop,int run)
     START=clock();
 
     while(r<run){
-        GA(iteration,P,value,pop,r,convergence,result,PATH);
+        GA(iteration,P,value,pop,r,convergence,result,PATH,F);
         r++;
     }
     for(int i=0;i<convergence.size();i++)

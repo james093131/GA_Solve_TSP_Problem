@@ -190,7 +190,8 @@ void GA(int iteration,i2d P,i1d value,int pop,int r,i1d &convergence,i1d &result
     while(i<iteration)
     {
         tournament(P,temp,Fitness,pop);
-        CX_crossover(P,temp);
+        // CX_crossover(P,temp);
+        PMS(P,temp);
         evaluate(P,distancetable,Fitness,bestpop,bestvalue);        
         updateglobalbest(bestvalue,bestpop,globalbestvalue,globalbest,P);
         convergence[i] += globalbestvalue;

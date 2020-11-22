@@ -1,5 +1,5 @@
 #define CR 0.95
-#define MR 0.1
+#define MR 0.2
 #define dim 3
 #include<stdio.h>
 #include<fstream>
@@ -63,6 +63,112 @@ int Find_Value(int F,i1d arr)//回傳該值的index
             return i;
     }
     return -1;
+}
+int  FIND_Correspond(int K,i2d Correspond_Number)
+{
+    for(int i=0;i<Correspond_Number.size();i++)
+    {
+        for(int j=0;j<Correspond_Number[i].size();j++)
+        {
+            if (Correspond_Number[i][j] == K )
+            {
+                if(j == 0)
+                    return Correspond_Number[i][1];
+                else 
+                    return Correspond_Number[i][0];
+            }    
+        }
+    }
+    return K;
+}
+void PMS(i2d &arr ,i2d temp)
+{
+    int pop = arr.size();
+    int len = arr[0].size();
+    int k = 0;
+    while (k < pop)
+    {
+        int c1 = rand()%(len-7);
+        int c2 = c1 +5;
+        i2d Correspond_Number;
+        for(int i = c1;i < c2;i++)
+        {
+            i1d T(2,0);
+            T[0] = temp[k][i];
+            T[1] = temp[k+1][i];
+            Correspond_Number.push_back(T);
+        }
+        // cout<<"BEFORE"<<endl;
+        // for(int i=0;i<Correspond_Number.size();i++)
+        // {
+        //     for(int j=0;j<Correspond_Number[i].size();j++)
+        //     {
+        //         cout<<Correspond_Number[i][j]<<' ';
+        //     }
+        //     cout<<endl;
+        // }
+
+
+
+        for(int i=0;i<Correspond_Number.size()-1;i++)
+        {
+            for(int j=i+1;j<Correspond_Number.size();j++)
+            {
+                if (Correspond_Number[i][0] == Correspond_Number[j][1])
+                {
+                    i1d T(2,0);
+                    T[0] = Correspond_Number[i][1];
+                    T[1] = Correspond_Number[j][0];
+                    Correspond_Number.push_back(T);
+                    Correspond_Number.erase(Correspond_Number.begin()+i);
+                    Correspond_Number.erase(Correspond_Number.begin()+j-1);
+                }
+                else if(Correspond_Number[i][1]  == Correspond_Number[j][0])
+                {
+                    i1d T(2,0);
+                    T[0] = Correspond_Number[i][0];
+                    T[1] = Correspond_Number[j][1];
+                    Correspond_Number.push_back(T);
+                    Correspond_Number.erase(Correspond_Number.begin()+i);
+                    Correspond_Number.erase(Correspond_Number.begin()+j-1);
+                }
+
+            }
+        }
+        // cout<<"AFTER"<<endl;
+        // for(int i=0;i<Correspond_Number.size();i++)
+        // {
+        //     for(int j=0;j<Correspond_Number[i].size();j++)
+        //     {
+        //         cout<<Correspond_Number[i][j]<<' ';
+        //     }
+        //     cout<<endl;
+        // }
+
+
+        for(int i=0;i<len-1;i++)
+        {   
+            if(i < c1 || i >= c2)
+            {
+                int A = FIND_Correspond(temp[k][i],Correspond_Number);
+                arr[k][i] = A;
+
+                int B = FIND_Correspond(temp[k+1][i],Correspond_Number);
+                arr[k+1][i] = B;
+            }
+            else
+            {
+                arr[k][i] = temp[k+1][i];
+                arr[k+1][i] = temp[k][i];
+            }
+        }
+        arr[k][len-1] = arr[k][0];
+        arr[k+1][len-1] = arr[k+1][0] ;
+        k += 2;
+    }
+    
+
+
 }
 void CX_crossover(i2d &arr,i2d temp){//隨機生成一個切割點，將兩個染色體做交配
 

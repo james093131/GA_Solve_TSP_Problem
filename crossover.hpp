@@ -88,7 +88,7 @@ void PMS(i2d &arr ,i2d temp)
     int k = 0;
     while (k < pop)
     {
-        int c1 = rand()%(len-7);
+        int c1 = rand()%(len-6);
         int c2 = c1 +5;
         i2d Correspond_Number;
         for(int i = c1;i < c2;i++)
@@ -98,18 +98,7 @@ void PMS(i2d &arr ,i2d temp)
             T[1] = temp[k+1][i];
             Correspond_Number.push_back(T);
         }
-        // cout<<"BEFORE"<<endl;
-        // for(int i=0;i<Correspond_Number.size();i++)
-        // {
-        //     for(int j=0;j<Correspond_Number[i].size();j++)
-        //     {
-        //         cout<<Correspond_Number[i][j]<<' ';
-        //     }
-        //     cout<<endl;
-        // }
-
-
-
+    
         for(int i=0;i<Correspond_Number.size()-1;i++)
         {
             for(int j=i+1;j<Correspond_Number.size();j++)
@@ -135,17 +124,7 @@ void PMS(i2d &arr ,i2d temp)
 
             }
         }
-        // cout<<"AFTER"<<endl;
-        // for(int i=0;i<Correspond_Number.size();i++)
-        // {
-        //     for(int j=0;j<Correspond_Number[i].size();j++)
-        //     {
-        //         cout<<Correspond_Number[i][j]<<' ';
-        //     }
-        //     cout<<endl;
-        // }
-
-
+     
         for(int i=0;i<len-1;i++)
         {   
             if(i < c1 || i >= c2)
@@ -168,7 +147,96 @@ void PMS(i2d &arr ,i2d temp)
     }
     
 
+}
+void OX_Crossover(i2d &arr,i2d temp)
+{
+    int pop = arr.size();
+    int len = arr[0].size();
+    int k = 0;
+    while (k < pop)
+    {
+        int c1 = rand()%(len-8)+2;
+        int c2 = c1 +5;
+        i1d Number_One;
+        i1d Number_Two;
+        i1d Middle_One;
+        i1d Middle_Two;
+        Number_One.clear();
+        Number_Two.clear();
+        Middle_One.clear();
+        Middle_Two.clear();
+        for(int i=c2;i<len-1;i++)
+        {
+            Number_One.push_back(temp[k+1][i]);
+            Number_Two.push_back(temp[k][i]);
+        }
+        for(int i=0;i<c1;i++)
+        {
+            Number_One.push_back(temp[k+1][i]);
+            Number_Two.push_back(temp[k][i]);
+        }
+        for(int i = c1;i < c2;i++)
+        {
+            Middle_One.push_back(temp[k][i]);
+            Middle_Two.push_back(temp[k+1][i]);
+            Number_One.push_back(temp[k+1][i]);
+            Number_Two.push_back(temp[k][i]);
+        }
 
+        for(int i=0;i<Number_One.size();i++)
+        {
+            for(int j=0;j<Middle_One.size();j++)
+            {
+                if(Number_One[i] == Middle_One[j])
+                {
+                    Number_One.erase(Number_One.begin()+i);
+                    Middle_One.erase(Middle_One.begin()+j);
+                }
+                
+            }
+            if(Middle_One.size()== 0)
+                break;
+        }
+
+        for(int i=0;i<Number_Two.size();i++)
+        {
+            for(int j=0;j<Middle_Two.size();j++)
+            {
+                if(Number_Two[i]  == Middle_Two[j])
+                {
+                    Number_Two.erase(Number_Two.begin()+i);
+                    Middle_Two.erase(Middle_Two.begin()+j);
+                }
+                
+            }
+            if(Middle_One.size()== 0)
+                break;
+        }
+        for(int i=c2;i<len-1;i++)
+        {
+            arr[k][i] = Number_One.front();
+            Number_One.erase(Number_One.begin());
+            arr[k+1][i] = Number_Two.front();
+            Number_Two.erase(Number_Two.begin());
+        }
+        for(int i=c1;i<c2;i++)
+        {
+            arr[k][i] = temp[k][i];
+            arr[k+1][i] = temp[k+1][i];
+        }
+        for(int i=0;i<c1;i++)
+        {
+            arr[k][i] = Number_One.front();
+            Number_One.erase(Number_One.begin());
+            arr[k+1][i] = Number_Two.front();
+            Number_Two.erase(Number_Two.begin());
+        }
+
+        arr[k][len-1] = arr[k][0];
+        arr[k+1][len-1] = arr[k+1][0];
+
+        k+=2;
+    }
 }
 void CX_crossover(i2d &arr,i2d temp){//隨機生成一個切割點，將兩個染色體做交配
 

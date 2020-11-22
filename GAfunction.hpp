@@ -192,6 +192,8 @@ void GA(int iteration,i2d P,i1d value,int pop,int r,i1d &convergence,i1d &result
         tournament(P,temp,Fitness,pop);
         if(F == std::string("P"))
             PMS(P,temp);
+        else if(F == std::string("O"))
+            OX_Crossover(P,temp);
         else 
             CX_crossover(P,temp);
         

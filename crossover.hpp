@@ -165,7 +165,7 @@ void OX_Crossover(i2d &arr,i2d temp)
         Number_Two.clear();
         Middle_One.clear();
         Middle_Two.clear();
-        for(int i=c2;i<len-1;i++)
+        for(int i = c2;i < len-1;i++)
         {
             Number_One.push_back(temp[k+1][i]);
             Number_Two.push_back(temp[k][i]);
@@ -179,11 +179,14 @@ void OX_Crossover(i2d &arr,i2d temp)
         {
             Middle_One.push_back(temp[k][i]);
             Middle_Two.push_back(temp[k+1][i]);
+
             Number_One.push_back(temp[k+1][i]);
             Number_Two.push_back(temp[k][i]);
         }
 
-        for(int i=0;i<Number_One.size();i++)
+        
+        int i;
+        for( i=0;i<Number_One.size();i++)
         {
             for(int j=0;j<Middle_One.size();j++)
             {
@@ -191,6 +194,8 @@ void OX_Crossover(i2d &arr,i2d temp)
                 {
                     Number_One.erase(Number_One.begin()+i);
                     Middle_One.erase(Middle_One.begin()+j);
+                    i = i-1;
+                    break;
                 }
                 
             }
@@ -198,18 +203,22 @@ void OX_Crossover(i2d &arr,i2d temp)
                 break;
         }
 
-        for(int i=0;i<Number_Two.size();i++)
+       
+        int z;
+        for(z=0;z<Number_Two.size();z++)
         {
             for(int j=0;j<Middle_Two.size();j++)
             {
-                if(Number_Two[i]  == Middle_Two[j])
+                if(Number_Two[z]  == Middle_Two[j])
                 {
-                    Number_Two.erase(Number_Two.begin()+i);
+                    Number_Two.erase(Number_Two.begin()+z);
                     Middle_Two.erase(Middle_Two.begin()+j);
+                    z = z-1;
+                    break;
                 }
                 
             }
-            if(Middle_One.size()== 0)
+            if(Middle_Two.size()== 0)
                 break;
         }
         for(int i=c2;i<len-1;i++)
@@ -234,7 +243,7 @@ void OX_Crossover(i2d &arr,i2d temp)
 
         arr[k][len-1] = arr[k][0];
         arr[k+1][len-1] = arr[k+1][0];
-
+        
         k+=2;
     }
 }

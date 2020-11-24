@@ -20,6 +20,9 @@ PMX
 
 OX
 收斂到940左右
+但後來嘗試了更高的population數，pop:800 iteration:300 的情況下，程式可以收斂到458，如圖800_300png所示。
+也嘗試了更高的evaluation總數，但收斂值均在458上下，可以從此看出，GA_OX的極限大概就到這邊，其實也有不差的效果。
+
 
 參考資料
 https://www.hindawi.com/journals/cin/2017/7430125/

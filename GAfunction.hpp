@@ -239,7 +239,7 @@ void RUN(int iteration,int pop,int run,char *F)
 	file.open("GA_PATH.txt",ios::out);
     for(int i=0;i<PATH.size();i++)
     {
-        file<<PATH[i]<<endl;
+        file<<PATH[i]<<' ';
     }
     file.close();
     fstream file1;//寫檔

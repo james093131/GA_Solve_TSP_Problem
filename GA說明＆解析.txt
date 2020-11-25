@@ -20,9 +20,19 @@ PMX
 
 OX
 收斂到940左右
-但後來嘗試了更高的population數，pop:800 iteration:300 的情況下，程式可以收斂到458，如圖800_300png所示。
+
+
+
+用run :30 pop:800 iteration:250的情形下進行實驗會發現其實ＧＡ可以收斂到蠻好的結果
+CX 
+能收在590左右
+PMX
+
+OX
+嘗試了更高的population數，pop:800 iteration:250 的情況下，程式可以收斂到458，如圖800_300png所示。
 也嘗試了更高的evaluation總數，但收斂值均在458上下，可以從此看出，GA_OX的極限大概就到這邊，其實也有不差的效果。
 
 
+OX在三種不同的crossover方式中表現最佳，
 參考資料
 https://www.hindawi.com/journals/cin/2017/7430125/

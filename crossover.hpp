@@ -1,5 +1,5 @@
 #define CR 0.95
-#define MR 0.2
+#define MR 0
 #define dim 3
 #include<stdio.h>
 #include<fstream>
@@ -88,46 +88,55 @@ void PMS(i2d &arr ,i2d temp)
     int k = 0;
     while (k < pop)
     {
-        int c1 = rand()%(len-6);
-        int c2 = c1 +5;
+        int c1 = rand()%(len-7);
+        int c2 = c1 +3;
         i2d Correspond_Number;
-        for(int i = c1;i < c2;i++)
+        Correspond_Number.clear();
+        for(int i = c1; i < c2;i++)
         {
             i1d T(2,0);
             T[0] = temp[k][i];
             T[1] = temp[k+1][i];
             Correspond_Number.push_back(T);
         }
-    
-        for(int i=0;i<Correspond_Number.size()-1;i++)
+        
+       
+        for(int i=0;i < Correspond_Number.size();i++)
         {
-            for(int j=i+1;j<Correspond_Number.size();j++)
+            for(int j= 0 ;j < Correspond_Number.size();j++)
             {
-                if (Correspond_Number[i][0] == Correspond_Number[j][1])
+                if( i == j )
+                        ;
+                else if (Correspond_Number[i][0] == Correspond_Number[j][1])
                 {
-                    i1d T(2,0);
-                    T[0] = Correspond_Number[i][1];
-                    T[1] = Correspond_Number[j][0];
-                    Correspond_Number.push_back(T);
-                    Correspond_Number.erase(Correspond_Number.begin()+i);
-                    Correspond_Number.erase(Correspond_Number.begin()+j-1);
+                    Correspond_Number[i][0]= Correspond_Number[i][1];
+                    Correspond_Number[i][1] = Correspond_Number[j][0];
+                    
+                    Correspond_Number.erase(Correspond_Number.begin()+j);
+                    i = i-1;
+                    break;
+                  
                 }
                 else if(Correspond_Number[i][1]  == Correspond_Number[j][0])
                 {
-                    i1d T(2,0);
-                    T[0] = Correspond_Number[i][0];
-                    T[1] = Correspond_Number[j][1];
-                    Correspond_Number.push_back(T);
-                    Correspond_Number.erase(Correspond_Number.begin()+i);
-                    Correspond_Number.erase(Correspond_Number.begin()+j-1);
+                    Correspond_Number[i][0] = Correspond_Number[i][0];
+                    Correspond_Number[i][1] = Correspond_Number[j][1];
+                    Correspond_Number.erase(Correspond_Number.begin()+j);
+                    i = i-1;
+                    break;
                 }
 
             }
         }
-     
+      
         for(int i=0;i<len-1;i++)
         {   
-            if(i < c1 || i >= c2)
+            if (i >=c1 && i < c2)
+            {
+                arr[k][i] = temp[k+1][i];
+                arr[k+1][i] = temp[k][i];
+            }
+            else
             {
                 int A = FIND_Correspond(temp[k][i],Correspond_Number);
                 arr[k][i] = A;
@@ -135,11 +144,7 @@ void PMS(i2d &arr ,i2d temp)
                 int B = FIND_Correspond(temp[k+1][i],Correspond_Number);
                 arr[k+1][i] = B;
             }
-            else
-            {
-                arr[k][i] = temp[k+1][i];
-                arr[k+1][i] = temp[k][i];
-            }
+           
         }
         arr[k][len-1] = arr[k][0];
         arr[k+1][len-1] = arr[k+1][0] ;

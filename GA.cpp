@@ -13,8 +13,8 @@ int main(int argc, char *argv[])
     }
     else
     {
-        char K ='C';
-        RUN(1000,30,30,&K);
+        char K ='O';
+        RUN(250,800,30,&K);
     }    
    
 }

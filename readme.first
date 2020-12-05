@@ -3,9 +3,9 @@
    make
 
 2. Type either one of the following two commands to run the program:
-   ./main
+   ./GA
    or
-   ./main [population] [iteration] [run] [CrossOver Method]
+   ./GA [population] [iteration] [run] [CrossOver Method]
 
 1. CrossOver Method : CX
    ./GA Pop Iteration Run C
